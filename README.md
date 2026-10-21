@@ -25,7 +25,7 @@ Decryption **unwraps these passes in reverse order.** ($K_2$ first, then $K_1$).
 
 A **naive implementation** fails when $N$ is not a multiple of both key lengths because it attempts to remove padding immediately after decrypting with $K_2$.
 
-If padding is removed right after the $K_2$ decryption pass, the intermediate text length is now below $N_1$ and therefore will fail when running the $K_1$ decryption pass. Columnar transpositions depend strictly on the exact intermediate text length. Altering $N_1$ causes the caharcters to be extracted incorrectly, outputting the wrong text. `decrypt_double` must preserve the intermediate length $N_1$ between passes and only strip padding after both passes.
+If padding is removed right after the $K_2$ decryption pass, the intermediate text length is now below $N_1$ and therefore will fail when running the $K_1$ decryption pass. Columnar transpositions depend strictly on the exact intermediate text length. Altering $N_1$ causes the characters to be extracted incorrectly, outputting the wrong text. `decrypt_double` must preserve the intermediate length $N_1$ between passes and only strip padding after both passes.
 
 Encryption Flow:  
 
@@ -33,7 +33,7 @@ $$\text{Plaintext}_N \xrightarrow[K_1]{\text{pad pass 1}} \text{Intermediate}_{N
 
 Decryption Flow:
 
-$$\text{Ciphertext}_{N_2} \xrightarrow[K_2]{\text{decrypt pass 1}} \text{Intermediate}_{N_1}!!! \xrightarrow[K_1]{\text{decrypt pass 2}} \text{Plaintext}_N$$
+$$\text{Ciphertext}_{N_2} \xrightarrow[K_2]{\text{decrypt pass 1}} \text{Intermediate}_{N_1}\xrightarrow[K_1]{\text{decrypt pass 2}} \text{Plaintext}_N$$
 
 
 ## 3. B1 - Index of Coincidence
@@ -52,7 +52,7 @@ TO DO
 
 TO DO 
 
-### 8. C3 - Columnar Transposition Breaker
+## 8. C3 - Columnar Transposition Breaker
 
 TO DO 
 
