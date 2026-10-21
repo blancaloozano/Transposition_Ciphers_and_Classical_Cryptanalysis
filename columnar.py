@@ -30,7 +30,6 @@ def encrypt(plaintext: str, keyword: str, pad: str = "X") -> str:
         for i in range(missing_chars):
             plaintext += pad
 
-
     # Now we create empty strings for each column ["", "", ...]
     # This is where the characters will go 
     columns = []
@@ -89,15 +88,21 @@ def decrypt(ciphertext: str, keyword: str) -> str:
     # Output: MYSECRETMESSAGEXXX
 
 
-
-    
-
-
-
-
 # A3 - Double Tranposition
 
-# def encrypt_double(plaintext: str, kw1: str, kw2: str, pad: str = "X") -> str
+def encrypt_double(plaintext: str, kw1: str, kw2: str, pad: str = "X") -> str:
 
-# def decrypt_double(ciphertext: str, kw1: str, kw2: str) -> str
+    first_pass = encrypt(plaintext, kw1, pad)
+    return encrypt(first_pass, kw2, pad)
+
+# print(encrypt_double("THESAMEKEYMUSTNEVERBEUSEDTWICE", "ROTOR", "ENIGMA"))
+    # Output: WCTEIHSTAEVREBEUTMNSUEEDSEEMYK
+
+def decrypt_double(ciphertext: str, kw1: str, kw2: str) -> str:
+
+    first_pass = decrypt(ciphertext, kw2)
+    return decrypt(first_pass, kw1)
+
+# print(decrypt_double("WCTEIHSTAEVREBEUTMNSUEEDSEEMYK", "ROTOR", "ENIGMA"))
+    # Output: THESAMEKEYMUSTNEVERBEUSEDTWICE
 
