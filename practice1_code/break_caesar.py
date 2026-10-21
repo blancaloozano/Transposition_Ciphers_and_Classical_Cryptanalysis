@@ -18,16 +18,19 @@ spanish = {'A': 0.11525, 'B': 0.02215, 'C': 0.04019, 'D': 0.05010, 'E': 0.13702,
            'Y': 0.01433, 'Z': 0.00467
 }
 
-reference_en = ("It is a truth universally acknowledged that a single man in "
-    "possession of a good fortune must be in want of a wife However "
-    "little known the feelings or views of such a man may be on his "
-    "first entering a neighbourhood this truth is so well fixed in "
-    "the minds of the surrounding families that he is considered as "
-    "the rightful property of some one or other of their daughters "
-    "My dear Mr Bennet said his lady to him one day have you heard "
-    "that Netherfield Park is let at last Mr Bennet replied that he "
-    "had not You want to tell me and I have no objection to hearing "
-    "it This was invitation enough").upper().replace(" ", "")
+reference_en = ("Developing effective communication skills is essential "
+"for success in the modern professional landscape. Whether you are writing "
+"a formal email, presenting a project proposal, or collaborating with "
+"international teams, clarity is key. Strong writers focus on keeping their "
+"sentences short and active. They avoid unnecessary jargon that might "
+"confuse the reader. Furthermore, digital tools now make it easier than ever"
+" to edit and refine your work before sharing it. Taking a few extra minutes"
+" to proofread your text ensures that your message is accurate and polished."
+"Ultimately, investing time in your writing builds credibility, strengthens "
+"professional relationships, and helps you achieve your goals. By choosing "
+"your words carefully, you can make a lasting impact on your audience,"
+"build trust, and advance your career now.").upper().replace(" ", "").replace(".", "").replace(",", "")
+
 
 
 
