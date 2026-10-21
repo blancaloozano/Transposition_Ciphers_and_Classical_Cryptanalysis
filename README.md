@@ -26,7 +26,7 @@ Decryption **unwraps these passes in reverse order.** ($K_2$ first, then $K_1$).
 
 A **naive implementation** fails when $N$ is not a multiple of both key lengths because it attempts to remove padding immediately after decrypting with $K_2$.
 
-If padding is removed right after the $K_2$ decryption pass, the intermediate text length is now below $N_1$ and therefore will fail when running the $K_1$ decryption pass. Columnar transpositions depend strictly on the exact intermediate text length. Altering $N_1$ causes the caharcters to be extracted incorrectly, ouotputting the wrong text. `decrypt_double` must presetve the intermediate length $N_1$ between passes and only strip padding after both passes.
+If padding is removed right after the $K_2$ decryption pass, the intermediate text length is now below $N_1$ and therefore will fail when running the $K_1$ decryption pass. Columnar transpositions depend strictly on the exact intermediate text length. Altering $N_1$ causes the caharcters to be extracted incorrectly, outputting the wrong text. `decrypt_double` must preserve the intermediate length $N_1$ between passes and only strip padding after both passes.
 
 Encryption Flow:  
 
@@ -37,11 +37,27 @@ Decryption Flow:
 $$\text{Ciphertext}_{N_2} \xrightarrow[K_2]{\text{decrypt pass 1}} \text{Intermediate}_{N_1}!!! \xrightarrow[K_1]{\text{decrypt pass 2}} \text{Plaintext}_N$$
 
 
-## 3. Index of Coincidence
+## 3. B1 - Index of Coincidence
 
-## 4. Classifier
+## 4. B2 - Cipher Classifier
 
-## 8. Limitations and Observations
+## 5. B3 - Kasiski
+
+TO DO 
+
+## 6. C1 - Coset Index Table
+
+TO DO
+
+## 7. C2 - Vigenère Attack
+
+TO DO 
+
+### 8. C3 - Columnar Transposition Breaker
+
+TO DO 
+
+## 9. Limitations and Observations
 
 The development of this practice helped me see what I did wrong in the previous practice:
 * **Missing Experimental Cases**: In P1 I omitted the cross-language comparison tables (such as testing a Spanish text with an English frequency table). In P2, I made sure to fully read all requirements and report complete tables for every requested case.
