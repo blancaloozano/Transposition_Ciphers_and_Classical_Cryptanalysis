@@ -54,7 +54,9 @@ $$IC = \frac{\sum{n_L (n_L -1)}}{N (N-1)}$$
 
 where $n_L$ is the count of the letter L in that text and n being the length of the text
 
-Most letter counts are either 0 or 1, either option resulting in a numerator of 0 which artificially pulls the IC towards noise. As $N$ grows, texts are more likely to repeat letters. This forces $n_L \ge 2$, causing positive values to accumulate in the numerator instead of 0s, therefore stabilizing the IC around its theoretical value. I calculated the IC manually for different text lengths, reaching the conclussion that its relibale approximately at $\approx 100$
+In short texts most letter counts are either 0 or 1, contributing nothing to the numerator. With barely any pairs, the numerator cannot accumuate enough matches to reach the theoretical average. Instead, the IC stays trapped in values between 0 and 0.038, acting like random noise.
+
+As $N$ grows, texts are more likely to repeat letters. This forces $n_L \ge 2$, causing positive values to accumulate in the numerator instead of 0s, therefore stabilizing the IC around its theoretical value. I calculated the IC manually for different text lengths, reaching the conclusion that it is relibale at approximately $\approx 100$
 
 
 
