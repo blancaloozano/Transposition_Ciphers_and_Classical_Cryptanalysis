@@ -86,5 +86,5 @@ def decrypt(ciphertext: str, rails: int) -> str:
 
     return plaintext
 
-# print(decrypt(encrypt("MYSECRETMESSAGE", 3), 3)) 
+# print(decrypt(encrypt("MYSECRETMESSAGE", 2), 2)) 
     # Output: MYSECRETMESSAGE
