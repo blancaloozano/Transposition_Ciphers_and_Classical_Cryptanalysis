@@ -41,7 +41,7 @@ def classify(ciphertext: str, language: str = "en") -> str:
         table = english
 
     score = chi_squared(ciphertext, table)
-    threshold = 0.035
+    threshold = 0.50
 
     if score < threshold:
         return "transposition"
