@@ -1,4 +1,6 @@
 from collections import Counter
+from columnar import encrypt as columnar_encrypt
+
 
 # B1 - Index of Coincidence
 
@@ -24,7 +26,6 @@ def index_of_coincidence(text: str) -> float:
 
 
 # B2 - Cipher Family Classifier
-
 # Reusing The chi-square function and frequency tables we defined in Lab 1:
 
 english = {'A': 0.08167, 'B': 0.01492, 'C': 0.02782, 'D': 0.04253, 'E': 0.12702, 'F': 0.02228,
@@ -73,4 +74,21 @@ def classify(ciphertext: str, language: str = "en") -> str:
         return "transposition"
     else:
         return "substitution"
+
+# Measurement Task
+
+reference_en = ("Developing effective communication skills is essential "
+"for success in the modern professional landscape. Whether you are writing "
+"a formal email, presenting a project proposal, or collaborating with "
+"international teams, clarity is key. Strong writers focus on keeping their "
+"sentences short and active. They avoid unnecessary jargon that might "
+"confuse the reader. Furthermore, digital tools now make it easier than ever"
+" to edit and refine your work before sharing it. Taking a few extra minutes"
+" to proofread your text ensures that your message is accurate and polished."
+"Ultimately, investing time in your writing builds credibility, strengthens "
+"professional relationships, and helps you achieve your goals. By choosing "
+"your words carefully, you can make a lasting impact on your audience,"
+"build trust, and advance your career now.").upper().replace(" ", "").replace(".", "").replace(",", "")
+
+
 
