@@ -13,6 +13,10 @@ TO DO
 
 ## 2. A3 - Double Transposition & Padding
 
+### Question
+*Explain what your `decrypt_double` has to do differently when the plaintext length is not a multiple of both keys, and why a naive implementation returns garbage in that case.*
+
+### Explanation
 In a single columnar transposition, when the plaintext length, *N*, is not a multiple of the key length, *K*, padding is added to form a complete matrix. 
 
 In double columnar transposition:
@@ -20,8 +24,6 @@ In double columnar transposition:
 2. **Encryption - Pass 2:** We take this text of length $N_1$ and pad it to a multiple of $K_2$, producing a final ciphertext of length $N_2$. 
 
 Decryption **unwraps these passes in reverse order.** ($K_2$ first, then $K_1$).
-
-### Why a Naive Implementation Fails
 
 A **naive implementation** fails when $N$ is not a multiple of both key lengths because it attempts to remove padding immediately after decrypting with $K_2$.
 
@@ -36,7 +38,28 @@ Decryption Flow:
 $$\text{Ciphertext}_{N_2} \xrightarrow[K_2]{\text{decrypt pass 1}} \text{Intermediate}_{N_1}\xrightarrow[K_1]{\text{decrypt pass 2}} \text{Plaintext}_N$$
 
 
-## 3. B1 - Index of Coincidence
+## 3. B1 - Index of Coincidence (CRYPTANALYSIS)
+
+### Question
+*`CRYPTANALYSIS` is an English word whose index equals that of uniformly random letters. State the shortest text length at which you would trust this measurement, and how you decided.*
+
+### Explanation
+The theoretical IC for an English text is $\approx 0.066$ and for uniformly random letters is $\approx \frac{1}{26} = 0.038$.
+
+Short examples usually lack repeating letters purely by chance, producing an IC identical to or lower than random noise. Like we saw with the `CRYPTANALYSIS` example where $N = 13$, it produced an IC of $0.038$. 
+
+I consider the measurement trustworthy for values of $N = 100$ or higher. To reach this decision I looked at the IC Formula:
+
+$$IC = \frac{\sum{n_L (n_L -1)}}{n (n-1)}$$
+
+where $n_L$ is the count of the letter L in that text and n being the length of the text
+
+Most letter counts are either 0 or 1. Because $\frac{1}{1-1} = 0$, the terms in the numerator evaluate to 0, artificially pulling the IC towards random noise, so a short length text might be classified as noise when its an actual test like the `CRYPTANALYSIS` case. 
+
+As $N$ grows, texts are more likely to repeat letters. This forces $n_L \ge 2$, causing positive values to accumulate in the numerator, therefore stabilizing the IC around its theoretical value. I calculated the IC manually for different text lengths, reaching the conclussion that its relibale approximately at $\approx 100$
+
+
+
 
 ## 4. B2 - Cipher Classifier
 
