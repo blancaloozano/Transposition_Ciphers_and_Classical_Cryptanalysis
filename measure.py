@@ -4,7 +4,7 @@ from columnar import encrypt as columnar_encrypt
 
 # Reusing the Practice 1 code:
 from practice1_code.break_caesar import chi_squared, english, spanish, reference_en
-from practice1_code.monoalpha import encrypt as monoalphabetic_encrypt
+from practice1_code.monoalpha import encrypt as monoalphabetic_encrypt, key_from_keyword
 
 
 # B1 - Index of Coincidence
@@ -48,7 +48,9 @@ def classify(ciphertext: str, language: str = "en") -> str:
     else:
         return "substitution"
 
-# Measurement Task
+# Measurement Task - Report 
+
+# Helper Functions
 
 def get_random_columnar_key() -> str:
     "Generates a random keyword of length between 4 and 8."
@@ -64,20 +66,59 @@ def get_random_columnar_key() -> str:
 
 def get_random_mono_key() -> str:
     "Generates a random 26-letter substitution key."
+    random_word = get_random_columnar_key()
+    return key_from_keyword(random_word)
 
-    alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+def get_probabilistic_pad(table: dict[str, float]) -> str:
+    "Selects a pad character randomly based on language frequencies."
 
-    return alphabet
-    # key_len = random.randint(4,8)
-    # key = ""
+    letters = list(table.keys())
+    weights = list(table.values())
+    chosen = random.choices(letters, weights, k = 1)
+    return chosen
 
-    # for i in range(key_len):
-    #     key += random.choice(alphabet)
+# Execution
 
-    # return key
+def run_measurement(probabilistic_padding: bool = False):
+    lengths = [60, 120, 250, 400]
 
-print(get_random_mono_key())
+    if probabilistic_padding:
+        print(f"\n--- Table 2: Probabilistic Padding ---")
+    else:
+        print(f"\n--- Table 1: Fixed Padding (X) ---")
 
+    print("Length | Transposition Errors | Substitution Errors | Total Errors")
+    print("-"* 55)
 
+    for L in lengths:
+        plaintext = reference_en[0:L]
+        transposition_errors = 0
+        substitution_errors = 0
 
+        # 150 Transposition trials
+        for i in range(150):
+            key = get_random_columnar_key()
+            if probabilistic_padding:
+                pad_char = get_probabilistic_pad(english)
+            else:
+                pad_char = "X"
 
+            ciphertext = columnar_encrypt(plaintext, key, pad = pad_char)
+            if classify(ciphertext, "en") != "transposition":
+                transposition_errors += 1
+
+        # 150 Transposition trials
+        for i in range(150):
+            key = get_random_columnar_key()
+            ciphertext = monoalphabetic_encrypt(plaintext, key)
+
+            if classify(ciphertext, "en") != "substitution":
+                substitution_errors += 1
+
+        total_errors = substitution_errors + transposition_errors
+        error_rate = (total_errors / 300) * 100 
+        print(f"{L:<6} | {transposition_errors:<12} | {substitution_errors:<12} | {error_rate:.2f}%")
+
+if __name__ == "__main__":
+    run_measurement(probabilistic_padding=False)
+    run_measurement(probabilistic_padding=True)
