@@ -1,3 +1,5 @@
+from collections import Counter
+
 # B1 - Index of Coincidence
 
 def index_of_coincidence(text: str) -> float:
@@ -24,7 +26,6 @@ def index_of_coincidence(text: str) -> float:
 # B2 - Cipher Family Classifier
 
 # Reusing The chi-square function and frequency tables we defined in Lab 1:
-
 
 english = {'A': 0.08167, 'B': 0.01492, 'C': 0.02782, 'D': 0.04253, 'E': 0.12702, 'F': 0.02228,
            'G': 0.02015, 'H': 0.06094, 'I': 0.06966, 'J': 0.00153, 'K': 0.00772, 'L': 0.04025,
@@ -57,6 +58,19 @@ def chi_squared(text: str, table: dict[str, float]) -> float:
 
     return chi_sq / length
 
-# def classify(ciphertext: str, language: str = "en") -> str:
+def classify(ciphertext: str, language: str = "en") -> str:
     """Return "transposition" or "substitution"."""
+
+    if language == "es":
+        table = spanish
+    else:
+        table = english
+
+    score = chi_squared(ciphertext, table)
+    threshold = 0.035
+
+    if score < threshold:
+        return "transposition"
+    else:
+        return "substitution"
 
