@@ -1,5 +1,5 @@
 
-from basics import to_numbers, to_letters
+from .basics import to_numbers, to_letters
 
 def encrypt(plaintext: str, k: int) -> str:
     nums = to_numbers(plaintext)

@@ -1,5 +1,5 @@
 
-from basics import to_numbers
+from .basics import to_numbers
 
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 

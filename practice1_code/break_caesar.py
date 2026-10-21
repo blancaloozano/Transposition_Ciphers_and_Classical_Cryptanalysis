@@ -1,6 +1,6 @@
 
 from collections import Counter
-from caesar import encrypt, decrypt
+from .caesar import encrypt, decrypt
 
 # Letters Frequency:
 
