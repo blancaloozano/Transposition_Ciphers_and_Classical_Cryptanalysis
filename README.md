@@ -46,17 +46,15 @@ $$\text{Ciphertext}_{N_2} \xrightarrow[K_2]{\text{decrypt pass 1}} \text{Interme
 ### Explanation
 The theoretical IC for an English text is $\approx 0.066$ and for uniformly random letters is $\approx \frac{1}{26} = 0.038$.
 
-Short examples usually lack repeating letters purely by chance, producing an IC identical to or lower than random noise. Like we saw with the `CRYPTANALYSIS` example where $N = 13$, it produced an IC of $0.038$. 
+Short examples usually lack repeating letters purely by chance, producing an IC identical to or lower than random noise. Like we saw with the `CRYPTANALYSIS` example where $N = 13$, it produced an IC of $0.038$
 
 I consider the measurement trustworthy for values of $N = 100$ or higher. To reach this decision I looked at the IC Formula:
 
-$$IC = \frac{\sum{n_L (n_L -1)}}{n (n-1)}$$
+$$IC = \frac{\sum{n_L (n_L -1)}}{N (N-1)}$$
 
 where $n_L$ is the count of the letter L in that text and n being the length of the text
 
-Most letter counts are either 0 or 1. Because $\frac{1}{1-1} = 0$, the terms in the numerator evaluate to 0, artificially pulling the IC towards random noise, so a short length text might be classified as noise when its an actual test like the `CRYPTANALYSIS` case. 
-
-As $N$ grows, texts are more likely to repeat letters. This forces $n_L \ge 2$, causing positive values to accumulate in the numerator, therefore stabilizing the IC around its theoretical value. I calculated the IC manually for different text lengths, reaching the conclussion that its relibale approximately at $\approx 100$
+Most letter counts are either 0 or 1, either option resulting in a numerator of 0 which artificially pulls the IC towards noise. As $N$ grows, texts are more likely to repeat letters. This forces $n_L \ge 2$, causing positive values to accumulate in the numerator instead of 0s, therefore stabilizing the IC around its theoretical value. I calculated the IC manually for different text lengths, reaching the conclussion that its relibale approximately at $\approx 100$
 
 
 
