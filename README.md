@@ -27,11 +27,11 @@ A **naive implementation** fails when $N$ is not a multiple of both key lengths 
 
 Encryption Flow:  
 
-$$\text{Plaintext}_N \xrightarrow[K_1]{\text{pad pass 1}} \text{Intermediate}_{N_1} \xrightarrow[K_2]{\text{pad pass 2}} \text{Ciphertext}_{N_2}$$
+$$\text{Plaintext}_N \xrightarrow[K_1]{\text{P1}} \text{Intermediate}_{N_1} \xrightarrow[K_2]{\text{P2}} \text{Ciphertext}_{N_2}$$
 
 Decryption Flow:
 
-$$\text{Ciphertext}_{N_2} \xrightarrow[K_2]{\text{decrypt pass 1}} \text{Intermediate}_{N_1} \xrightarrow[K_1]{\text{decrypt pass 2}} \text{Plaintext}_N$$
+$$\text{Ciphertext}_{N_2} \xrightarrow[K_2]{\text{P2}} \text{Intermediate}_{N_1} \xrightarrow[K_1]{\text{P1}} \text{Plaintext}_N$$
 
 
 ## 3. Index of Coincidence
