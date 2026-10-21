@@ -57,8 +57,8 @@ def get_random_columnar_key() -> str:
     
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     key_len = random.randint(4,8)
+    
     key = ""
-
     for i in range(key_len):
         key += random.choice(alphabet)
 
@@ -66,8 +66,15 @@ def get_random_columnar_key() -> str:
 
 def get_random_mono_key() -> str:
     "Generates a random 26-letter substitution key."
-    random_word = get_random_columnar_key()
-    return key_from_keyword(random_word)
+    
+    alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    random.shuffle(alphabet)
+
+    key = ""
+    for char in alphabet:
+        key += char
+
+    return key
 
 def get_probabilistic_pad(table: dict[str, float]) -> str:
     "Selects a pad character randomly based on language frequencies."
@@ -75,7 +82,7 @@ def get_probabilistic_pad(table: dict[str, float]) -> str:
     letters = list(table.keys())
     weights = list(table.values())
     chosen = random.choices(letters, weights, k = 1)
-    return chosen
+    return chosen[0]
 
 # Execution
 
@@ -109,7 +116,7 @@ def run_measurement(probabilistic_padding: bool = False):
 
         # 150 Transposition trials
         for i in range(150):
-            key = get_random_columnar_key()
+            key = get_random_mono_key()
             ciphertext = monoalphabetic_encrypt(plaintext, key)
 
             if classify(ciphertext, "en") != "substitution":
