@@ -7,8 +7,7 @@ The program is executed entirely from the terminal by targetting the main execut
 
 All commands assume you are in the repository root, with Python 3.11+ and no dependencies beyond the standard library (pytest only if you wish to run the automated tests). Here are some examples on how to run everything:
 ```text
-
-
+TO DO 
 ```
 
 
