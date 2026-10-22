@@ -95,13 +95,34 @@ We already know that Transposition changes the position of the letters while Sub
 
 Therefore, we can assume that a **transposition is going to have a *low* chi-square value** and a **substitution is going to have a *high* chi-square value**. The threshold is chosen to 'protect' the transposition samples from being misclassified as substitutions, but we could have chosen another threshold of 0.6 or 0.7 for example.
 
-#### 2. Lengths for the classifier to work
+#### 2. Lengths for the Classifier to Work
 
 We can see that the classifying function fails for every single one of the 150 columnar transposition samples for a text length of 60, this makes sense since statistically speaking only 60 letters are not enough to classify a text. Adding few more letters to the text (120) improves significantly and adding 250+ ensures that our function is not going to fail. 
-- Failure ($N = 60$) $\rightarrow$ The classifier fails for all Transposition Samples for both the fixed and random padding. The sample size is too short, reaching a $50%$ total error rate. 
-- Padding Sensitivity ($N = 120$) $\rightarrow$ The classifier fails $11%$ of the times under a fixed `X` padding but achieves a $0%$ error when using random padding. 
-- Success ($N = 250+$) $\rightarrow$ The classifier obtains a $0.0%$ for all texts.
+- Failure ($N = 60$) $\rightarrow$ The classifier fails for all Transposition Samples for both the fixed and random padding. The sample size is too short.
+- Padding Sensitivity ($N = 120$) $\rightarrow$ The classifier fails $11$% of the times under a fixed `X` padding but achieves a $0$% error when using random padding. 
+- Success ($N = 250+$) $\rightarrow$ The classifier works for all texts.
 
+#### 3. 6-pad Characters in a 66-letter ciphertext
+
+The letter `X` has a frequency of $0.0015$ in the English alphabet. For a ciphertext of length $N = 66$ in english, the expected frequency of `X`is: 
+
+$$E = N * 'X' = 66 * 0.0015 = 0.099$$
+
+if 6 `X` characters are added as padding, the chisquare contribution alone is: 
+
+$$\chi^2_\text{'X'}} = \frac{(O - E^2)}{E} = \frac{6 - 0.099)^2}{0.099} = \frac{34.8218}{0.099} \approx 351.73$$
+
+Normalizing by the total length:
+
+$$\frac{351.73}{66} \approx 5.329$$
+
+Adding 6 fixed `X` contributes **5.329** to the total chisquare score, **more than 10 times our threshold value of 0.5**, guaranteeing that the ciphertext is going to be misclassified as `substitution` no matter the rest of the letters.
+
+This also explains why we obtain better error rates for the random padding rather than with a fixed `X` padding, which justifies the design rules explained in the next question.
+
+#### 4. Design Rules
+
+We saw that choosing a fixed padding is not the best practice. Instead, I consider a good practice to choose probabilistic paddings from the target language, in this case english. This way, it does not introduce statistical noise like we saw previously witha  fixed `X` padding in en english text.
 
 ## 5. B3 - Kasiski
 
