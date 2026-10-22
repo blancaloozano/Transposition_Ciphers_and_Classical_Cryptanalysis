@@ -52,20 +52,19 @@ I consider the measurement trustworthy for values of $N = 100$ or higher. To rea
 
 $$IC = \frac{\sum{n_L (n_L -1)}}{N (N-1)}$$
 
-where $n_L$ is the count of the letter L in that text and n being the length of the text
+where $n_L$ is the count of the letter L in that text and N being the length of the text
 
 In short texts most letter counts are either 0 or 1, contributing nothing to the numerator. With barely any pairs, the numerator cannot accumuate enough matches to reach the theoretical average. Instead, the IC stays trapped in values between 0 and 0.038, acting like random noise.
 
-As $N$ grows, texts are more likely to repeat letters. This forces $n_L \ge 2$, causing positive values to accumulate in the numerator instead of 0s, therefore stabilizing the IC around its theoretical value. I calculated the IC manually for different text lengths, reaching the conclusion that it is relibale at approximately $\approx 100$
+As $N$ grows, texts are more likely to repeat letters. This forces $n_L \ge 2$, causing positive values to accumulate in the numerator instead of 0s, therefore stabilizing the IC around its theoretical value. I calculated the IC manually for different text lengths, reaching the conclusion that it is reliable at approximately $\approx 100$
 
 ## 4. B2 - Cipher Classifier
 
 ### Questions
 1. *Choose the threshold yourself, from data. Justify it in the report; do not hard-code a guess*
 2. *At which lengths does the classifier work, and at which does it fail?*
-3. *Changing only the pad character moves the error rate substantially. Explain the mechanism.*
-4. *Compute, for a 66-letter ciphertext containing 6 pad characters, how much the pad alone contributes to the chisquared statistic. Compare that number with your threshold.*
-5. *State the design rule this implies for anyone building a cipher that needs padding.*
+3. *Changing only the pad character moves the error rate substantially. Explain the mechanism.* *Compute, for a 66-letter ciphertext containing 6 pad characters, how much the pad alone contributes to the chisquared statistic. Compare that number with your threshold.*
+4. *State the design rule this implies for anyone building a cipher that needs padding.*
 
 Measurement Tables:
 ```text
@@ -91,7 +90,7 @@ Length     |   Transposition Errors  |  Substitution Errors  | Total Errors
 
 We already know that Transposition changes the position of the letters while Substitution changes the letters themselves. So, for the classifying function I decided to use a threshold of $0.5$ based on how to chi-square scoring function works:
 - If a text is close to what we expect (an english text), the chi-score is going to be a near-zero value.
-- If a text is not close to what we expect, the chi-square is going to be a really high value 
+- If a text is not close to what we expect, the chi-score is going to be a really high value 
 
 Therefore, we can assume that a **transposition is going to have a *low* chi-square value** and a **substitution is going to have a *high* chi-square value**. The threshold is chosen to 'protect' the transposition samples from being misclassified as substitutions, but we could have chosen another threshold of 0.6 or 0.7 for example.
 
@@ -110,7 +109,7 @@ $$E = N * 'X' = 66 * 0.0015 = 0.099$$
 
 if 6 `X` characters are added as padding, the chisquare contribution alone is: 
 
-$$\chi^2_\text{'X'} = \frac{(O - E^2)}{E} = \frac{(6 - 0.099)^2}{0.099} = \frac{34.8218}{0.099} \approx 351.73$$
+$$\chi^2_\text{X} = \frac{(O - E)^2}{E} = \frac{(6 - 0.099)^2}{0.099} = \frac{34.8218}{0.099} \approx 351.73$$
 
 Normalizing by the total length:
 
@@ -122,7 +121,7 @@ This also explains why we obtain better error rates for the random padding rathe
 
 #### 4. Design Rules
 
-We saw that choosing a fixed padding is not the best practice. Instead, I consider a good practice to choose probabilistic paddings from the target language, in this case english. This way, it does not introduce statistical noise like we saw previously witha  fixed `X` padding in en english text.
+We saw that using a fixed, rare character like `X`for padding introduces massive noise. Anyone building a cipher that requires padding must use **probabilistic padding** drawn from the target langauge's letter distribution to prevent this.
 
 ## 5. B3 - Kasiski
 
