@@ -114,7 +114,7 @@ def run_measurement(probabilistic_padding: bool = False):
             if classify(ciphertext, "en") != "transposition":
                 transposition_errors += 1
 
-        # 150 Transposition trials
+        # 150 Substitution trials
         for i in range(150):
             key = get_random_mono_key()
             ciphertext = monoalphabetic_encrypt(plaintext, key)
