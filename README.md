@@ -58,10 +58,43 @@ In short texts most letter counts are either 0 or 1, contributing nothing to the
 
 As $N$ grows, texts are more likely to repeat letters. This forces $n_L \ge 2$, causing positive values to accumulate in the numerator instead of 0s, therefore stabilizing the IC around its theoretical value. I calculated the IC manually for different text lengths, reaching the conclusion that it is relibale at approximately $\approx 100$
 
-
-
-
 ## 4. B2 - Cipher Classifier
+
+### Questions
+1. *At which lengths does the classifier work, and at which does it fail?*
+2. *Changing only the pad character moves the error rate substantially. Explain the mechanism.*
+3. *Compute, for a 66-letter ciphertext containing 6 pad characters, how much the pad alone contributes to the chisquared statistic. Compare that number with your threshold.*
+4. *State the design rule this implies for anyone building a cipher that needs padding.*
+
+Measurement Tables:
+```text
+---------------------- Table 1 Fixed Padding (X) ------------------------
+Length     |   Transposition Errors  |  Substitution Errors  | Total Errors
+60         |     150                 |       0               |     50.0% 
+120        |      33                 |       0               |     11.0%  
+250        |      0                  |       0               |     0.00% 
+400        |      0                  |       0               |     0.00%   
+```
+
+```text
+---------------------- Table 2 Random Padding ------------------------
+Length     |   Transposition Errors  |  Substitution Errors  | Total Errors
+60         |     148                 |       0               |     49.3% 
+120        |      0                  |       0               |     0.00%  
+250        |      0                  |       0               |     0.00% 
+400        |      0                  |       0               |     0.00%        
+```
+### Explanation
+
+We already know that Transposition changes the position of the letters while Substitution changes the letters themselves. So, for the classifying function I decided to use a threshold of 0.5 based on how to chi-square scoring function works:
+- If a text is close to what we expect (an english text), the chi-score is going to be a near-zero value.
+- If a text is not close to what we expect, the chi-square is going to be a really high value 
+
+Therefore, we can assume that a transposition is going to have a *low* chi-square value and a substitution is going to have a *high* chi-square value. The threshold is chosen to 'protect' the transposition samples from being misclassified as substitutions, but we could have chosen another threshold of 0.6 or 0.7 for example.
+
+
+We can see that the classifying function fails for every single one of the 150 columnar transposition samples for a text length of 60, this makes sense since statistically speaking only 60 letters are not enough to classify a text. Adding few more letters to the text (120) improves significantly and adding 250+ ensures that our function is not going to fail. 
+
 
 ## 5. B3 - Kasiski
 
