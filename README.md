@@ -110,7 +110,7 @@ $$E = N * 'X' = 66 * 0.0015 = 0.099$$
 
 if 6 `X` characters are added as padding, the chisquare contribution alone is: 
 
-$$\chi^2_\text{'X'}} = \frac{(O - E^2)}{E} = \frac{6 - 0.099)^2}{0.099} = \frac{34.8218}{0.099} \approx 351.73$$
+$$\chi^2_\text{'X'} = \frac{(O - E^2)}{E} = \frac{(6 - 0.099)^2}{0.099} = \frac{34.8218}{0.099} \approx 351.73$$
 
 Normalizing by the total length:
 
