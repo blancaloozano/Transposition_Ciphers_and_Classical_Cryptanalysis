@@ -61,10 +61,11 @@ As $N$ grows, texts are more likely to repeat letters. This forces $n_L \ge 2$, 
 ## 4. B2 - Cipher Classifier
 
 ### Questions
-1. *At which lengths does the classifier work, and at which does it fail?*
-2. *Changing only the pad character moves the error rate substantially. Explain the mechanism.*
-3. *Compute, for a 66-letter ciphertext containing 6 pad characters, how much the pad alone contributes to the chisquared statistic. Compare that number with your threshold.*
-4. *State the design rule this implies for anyone building a cipher that needs padding.*
+1. *Choose the threshold yourself, from data. Justify it in the report; do not hard-code a guess*
+2. *At which lengths does the classifier work, and at which does it fail?*
+3. *Changing only the pad character moves the error rate substantially. Explain the mechanism.*
+4. *Compute, for a 66-letter ciphertext containing 6 pad characters, how much the pad alone contributes to the chisquared statistic. Compare that number with your threshold.*
+5. *State the design rule this implies for anyone building a cipher that needs padding.*
 
 Measurement Tables:
 ```text
@@ -86,14 +87,20 @@ Length     |   Transposition Errors  |  Substitution Errors  | Total Errors
 ```
 ### Explanation
 
-We already know that Transposition changes the position of the letters while Substitution changes the letters themselves. So, for the classifying function I decided to use a threshold of 0.5 based on how to chi-square scoring function works:
+#### 1. Threshold Selection
+
+We already know that Transposition changes the position of the letters while Substitution changes the letters themselves. So, for the classifying function I decided to use a threshold of $0.5$ based on how to chi-square scoring function works:
 - If a text is close to what we expect (an english text), the chi-score is going to be a near-zero value.
 - If a text is not close to what we expect, the chi-square is going to be a really high value 
 
-Therefore, we can assume that a transposition is going to have a *low* chi-square value and a substitution is going to have a *high* chi-square value. The threshold is chosen to 'protect' the transposition samples from being misclassified as substitutions, but we could have chosen another threshold of 0.6 or 0.7 for example.
+Therefore, we can assume that a **transposition is going to have a *low* chi-square value** and a **substitution is going to have a *high* chi-square value**. The threshold is chosen to 'protect' the transposition samples from being misclassified as substitutions, but we could have chosen another threshold of 0.6 or 0.7 for example.
 
+#### 2. Lengths for the classifier to work
 
 We can see that the classifying function fails for every single one of the 150 columnar transposition samples for a text length of 60, this makes sense since statistically speaking only 60 letters are not enough to classify a text. Adding few more letters to the text (120) improves significantly and adding 250+ ensures that our function is not going to fail. 
+- Failure ($N = 60$) $\rightarrow$ The classifier fails for all Transposition Samples for both the fixed and random padding. The sample size is too short, reaching a $50%$ total error rate. 
+- Padding Sensitivity ($N = 120$) $\rightarrow$ The classifier fails $11%$ of the times under a fixed `X` padding but achieves a $0%$ error when using random padding. 
+- Success ($N = 250+$) $\rightarrow$ The classifier obtains a $0.0%$ for all texts.
 
 
 ## 5. B3 - Kasiski
