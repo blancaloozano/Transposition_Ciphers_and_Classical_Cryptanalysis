@@ -186,8 +186,7 @@ As observed in the table, $m=10$ and $m=15$ (multiples) also produce high IC val
 
 Measurement tables:
 
-```
-text
+```text
 --- Table 1: Complete Key Recovery Rate (%) ---
 Length   | K=3    | K=5    | K=7    | K=9   
 ---------------------------------------------
@@ -201,8 +200,7 @@ Length   | K=3    | K=5    | K=7    | K=9
 400      |    98% |   100% |   100% |    99%
 ```
 
-```
-text
+```text
 --- Table 2: Key Length Recovery Rate (%) ---
 Length   | K=3    | K=5    | K=7    | K=9   
 ---------------------------------------------
@@ -233,8 +231,7 @@ To guarantee a reliable key recovery, **each individual coset needs at least 35 
 
 Measurement table:
 
-```
-text
+```text
 --- Table: Columnar Breaker Success Rate (%) ---
 Length   | N=4    | N=5    | N=6    | N=7   
 ---------------------------------------------
@@ -242,8 +239,7 @@ Length   | N=4    | N=5    | N=6    | N=7
 120      |   100% |   100% |   100% |   100%
 200      |   100% |   100% |   100% |   100%
 ```
-```
-text
+```text
 --- Performance Limit Test ---
 Columns (N=7) -> Time: 0.047 seconds
 Columns (N=8) -> Time: 0.366 seconds
