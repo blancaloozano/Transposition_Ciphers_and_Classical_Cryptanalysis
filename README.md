@@ -121,11 +121,14 @@ This also explains why we obtain better error rates for the random padding rathe
 
 #### 4. Design Rules
 
-We saw that using a fixed, rare character like `X`for padding introduces massive noise. Anyone building a cipher that requires padding must use **probabilistic padding** drawn from the target langauge's letter distribution to prevent this.
+We saw that using a fixed, rare character like `X` for padding introduces massive noise. Anyone building a cipher that requires padding must use **probabilistic padding** drawn from the target langauge's letter distribution to prevent this.
 
 ## 5. B3 - Kasiski
 
-TO DO 
+#### Question
+*Explain why your factor_tally must not be replaced by a gcd, and give the condition under which the gcd silently fails.*
+
+#### Explanation
 
 ## 6. C1 - Coset Index Table
 
