@@ -151,30 +151,31 @@ We already know uniformly random distribution of letters produce a baseline IC o
 In my code, the function evaluates lengths iteratively from 1 to `max_m` and returns the first `m` that crosses this threshold. This prevents the code from returning a multiple of the key length, since multiples also cross the threshold but appear later.
 
 
-For the table, I used the reference twxt we've used before, this time only taking the first 600 characters. By using the key "LMEON" I encrypted it reusing `vigenere.py` from practice 1, obtaining the following IC resutls:
+For the table, I used the reference text we've used before, this time only taking the first 600 characters. By using the key "LMEON" I encrypted it reusing `vigenere.py` from practice 1, obtaining the following IC resutls:
 
 ```text
-m  | Coset Average IC
----|-----------------
-1  | 0.0421
-2  | 0.0418
-3  | 0.0430
-4  | 0.0419
-5  | 0.0631
-6  | 0.0426
-7  | 0.0410
-8  | 0.0420
-9  | 0.0442
-10 | 0.0619
-11 | 0.0397
-12 | 0.0436
-13 | 0.0404
-14 | 0.0422
-15 | 0.0668
-16 | 0.0390
+m  | Coset Average IC | Note
+---|------------------|----------------
+1  | 0.0421           | Divisor
+2  | 0.0418           | 
+3  | 0.0430           | 
+4  | 0.0419           | 
+5  | 0.0631           | True Key Length
+6  | 0.0426           | 
+7  | 0.0410           | 
+8  | 0.0420           | 
+9  | 0.0442           | 
+10 | 0.0619           | Multiple
+11 | 0.0397           | 
+12 | 0.0436           | 
+13 | 0.0404           | 
+14 | 0.0422           | 
+15 | 0.0668           | Multiple
+16 | 0.0390           | 
 
 Most likely key length: 5
 ```
+
 
 ## 7. C2 - Vigenère Attack
 

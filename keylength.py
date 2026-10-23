@@ -50,12 +50,23 @@ if __name__ == "__main__":
     plaintext = reference_en[0:600]
     ciphertext = vigenere_encrypt(plaintext, "LEMON")
 
-    print("m  | Coset Average IC")
-    print("---|-----------------")
+    kl = find_key_length(ciphertext)
+
+    print("m  | Coset Average IC | Note")
+    print("---|------------------|----------------")
+
     for m in range(1, 17):
         ic = coset_ic(ciphertext, m)
-        print(f"{m:<2} | {ic:.4f}")
-    
-    kl = find_key_length(ciphertext)
+
+        note = ""
+        if  m == kl:
+            note = "True Key Length"
+        elif kl % m == 0:
+            note = "Divisor"
+        elif m % kl == 0:
+            note = "Multiple"
+
+        print(f"{m:<2} | {ic:.4f}           | {note}")
+ 
     print(f"\nMost likely key length: {kl}")
 
