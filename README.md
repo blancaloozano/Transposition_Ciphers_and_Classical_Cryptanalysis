@@ -235,12 +235,30 @@ Measurement table:
 
 ```
 text
-TODO
+--- Table: Columnar Breaker Success Rate (%) ---
+Length   | N=4    | N=5    | N=6    | N=7   
+---------------------------------------------
+60       |   100% |   100% |   100% |   100%
+120      |   100% |   100% |   100% |   100%
+200      |   100% |   100% |   100% |   100%
+```
+```
+text
+--- Performance Limit Test ---
+Columns (N=7) -> Time: 0.047 seconds
+Columns (N=8) -> Time: 0.366 seconds
+Columns (N=9) -> Time: 3.229 seconds
+Columns (N=10) -> Time: 30.171 seconds
+Limit reached! Largest N under 10 seconds is 9.
 ```
 
 #### Explanation
 
-TO DO
+Single-letter frequencies are completely useless because transposition ciphers only rearrange character positions without altering their identities, meaning **every single one of the n! possible column permutations yields the exact same single-letter frequency distribution**.
+
+My implementation handles up to N = 9 (362,880 permutations) in 3.229 seconds, whereas N = 10 takes 30.171 seconds, hitting the 10-second threshold due to factorial explosion (10! = 3,628,800 permutations).
+
+We could, by evaluating partially reconstructed rows column by column, implement an algorithm that could prune and discard entire branches of permutations as soon as improbable or invalid bigrams/trigrams appear (like stopping immediately when combinations like 'QX' or 'ZX' form, skipping thousands of invalid downstream permutations).
 
 ## 9. Limitations and Observations
 
@@ -249,6 +267,6 @@ The development of this practice helped me see what I did wrong in the previous 
 *  **Qualitative vs. Quantitative Answers**: In P1, I relied too heavily on conceptual descriptions instead of precise numerical findings. In P2, I made sure to provide exact quantitative evidence (like the threshold selection reasoning and better tables)
 
 **AI Assistance** 
-LLMs (Claude and Gemini) were used throughout the development of this project. Rather than relying on them to generate the measurement tables or cryptanalysis reports like I wrongly did in P1, they were used to help me understand the code logic, to inspect and fix appearing errors, understand the measurement's task requirements and format the documentation.
+LLMs (Claude and Gemini) were used throughout the development of this project. Rather than relying on them to generate the cryptanalysis reports like I wrongly did in P1, they were used to help me understand the code logic, inspect and fix appearing errors, clarify measurement task requirements, and format the documentation. Gemini assisted in structuring the measurement benchmarking routines and table-printing logic in `break_columnar.py`.
 
 All measurements and cipher scripts were executed manually and all report data was independently generated and verified.
