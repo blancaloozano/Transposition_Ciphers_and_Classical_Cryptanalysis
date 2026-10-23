@@ -126,9 +126,15 @@ We saw that using a fixed, rare character like `X` for padding introduces massiv
 ## 5. B3 - Kasiski
 
 #### Question
-*Explain why your factor_tally must not be replaced by a gcd, and give the condition under which the gcd silently fails.*
+*The greatest common divisor of those three distances is 5, which is the right answer. Explain why your factor_tally must not be replaced by a gcd, and give the condition under which the gcd silently fails.*
 
 #### Explanation
+
+The `factor_tally` approach highlights the most frequent factors among all distances, which makes it highly robust to noise.
+
+If we replaced it with a single Greatest Common Divisor (GCD) calculation across all distances, are considering **accidental coincidences**, which is dangerous. Some short sequences will inevitably repeat by pure statistical chance, completely independent of the key. The GCD will fail (return 1) if there is **at least one accidental repeat** whose distance is coprime (shares no common prime factors) with the true key length.
+
+For example, if the true key lengt is 5, most distances will be multiples of 5 (15, 35, ...). If a random 3 letter sequence happens to repeat at a distance of 13, the GCD of `(15,35,50,13)` collapses to 1. `factor_tally` ignores this anomaly because 5 will still have massive tally, whereas 13 will only have a tally of 1.
 
 ## 6. C1 - Coset Index Table
 
@@ -149,7 +155,7 @@ We saw that using a fixed, rare character like `X` for padding introduces massiv
 ## 8. C3 - Columnar Transposition Breaker
 
 #### Question
-*$n$! grows fast. State the largest n your implementation handles in under ten seconds, and describe — without implementing it — one approach that would push that limit further.* 
+*****$n$! grows fast. State the largest n your implementation handles in under ten seconds, and describe — without implementing it — one approach that would push that limit further.* 
 
 ## 9. Limitations and Observations
 

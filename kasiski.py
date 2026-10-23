@@ -47,3 +47,13 @@ def factor_tally(ciphertext: str, max_factor: int = 20) -> dict[int, int]:
                 tally[f] += 1
 
     return tally
+
+# print(repeats("ELQYR JVQDR LXEGB ELQQV ALQFE PTQOG DEZRG SIDSC PEFGO " \
+# "PXDOL ELQYR JXAOA LPKGV D"))
+    # Output: {'ELQ': [0, 15, 50], 'LQY': [1, 51], 'QYR': [2, 52], 
+    # 'YRJ': [3, 53], 'ELQY': [0, 50], 'LQYR': [1, 51], 'QYRJ': [2, 52],
+    # 'ELQYR': [0, 50], 'LQYRJ': [1, 51], 'ELQYRJ': [0, 50]}
+
+# print(distances("ELQYR JVQDR LXEGB ELQQV ALQFE PTQOG DEZRG SIDSC PEFGO " \
+# "PXDOL ELQYR JXAOA LPKGV D"))
+    # Output: [15, 35, 50]
