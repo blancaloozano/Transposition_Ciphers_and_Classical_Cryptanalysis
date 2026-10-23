@@ -191,7 +191,7 @@ TO DO
 ## 8. C3 - Columnar Transposition Breaker
 
 #### Question
-* n! grows fast. State the largest n your implementation handles in under ten seconds, and describe — without implementing it — one approach that would push that limit further.* 
+n! grows fast. State the largest n your implementation handles in under ten seconds, and describe — without implementing it — one approach that would push that limit further.* 
 
 #### Explanation
 
