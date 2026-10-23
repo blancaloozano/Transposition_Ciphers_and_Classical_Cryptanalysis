@@ -132,7 +132,10 @@ We saw that using a fixed, rare character like `X` for padding introduces massiv
 
 ## 6. C1 - Coset Index Table
 
-TO DO
+#### Question
+*Show the full table of coset_ic for m = 1 to 16 on one of your own test ciphertexts, and mark the true key length, its multiples and its divisors*
+
+#### Explanation
 
 ## 7. C2 - Vigenère Attack
 
