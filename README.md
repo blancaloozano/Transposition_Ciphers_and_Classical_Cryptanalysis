@@ -134,7 +134,7 @@ The `factor_tally` approach highlights the most frequent factors among all dista
 
 If we replaced it with a single Greatest Common Divisor (GCD) calculation across all distances, are considering **accidental coincidences**, which is dangerous. Some short sequences will inevitably repeat by pure statistical chance, completely independent of the key. The GCD will fail (return 1) if there is **at least one accidental repeat** whose distance is coprime (shares no common prime factors) with the true key length.
 
-For example, if the true key lengt is 5, most distances will be multiples of 5 (15, 35, ...). If a random 3 letter sequence happens to repeat at a distance of 13, the GCD of `(15,35,50,13)` collapses to 1. `factor_tally` ignores this anomaly because 5 will still have massive tally, whereas 13 will only have a tally of 1.
+For example, if the true key length is 5, most distances will be multiples of 5 (15, 35, ...). If a random 3 letter sequence happens to repeat at a distance of 13, the GCD of `(15,35,50,13)` collapses to 1. `factor_tally` ignores this anomaly because 5 will still have massive tally, whereas 13 will only have a tally of 1.
 
 ## 6. C1 - Coset Index Table
 
@@ -151,7 +151,7 @@ We already know uniformly random distribution of letters produce a baseline IC o
 In my code, the function evaluates lengths iteratively from 1 to `max_m` and returns the first `m` that crosses this threshold. This prevents the code from returning a multiple of the key length, since multiples also cross the threshold but appear later.
 
 
-For the table, I used the reference text we've used before, this time only taking the first 600 characters. By using the key "LMEON" I encrypted it reusing `vigenere.py` from practice 1, obtaining the following IC resutls:
+For the table, I used the reference text we've used before, this time only taking the first 600 characters. By using the key "LEMON" I encrypted it reusing `vigenere.py` from practice 1, obtaining the following IC resutls:
 
 ```text
 m  | Coset Average IC | Note
@@ -175,7 +175,7 @@ m  | Coset Average IC | Note
 
 Most likely key length: 5
 ```
-
+As observed in the table, $m=10$ and $m=15$ (multiples) also produce high IC values, but the function successfully stops at $m=5$ because it is the smallest $m$ crossing the `0.055` threshold.
 
 ## 7. C2 - Vigenère Attack
 
@@ -186,10 +186,16 @@ Most likely key length: 5
 
 #### Explanation
 
+TO Do
+
 ## 8. C3 - Columnar Transposition Breaker
 
 #### Question
 *****$n$! grows fast. State the largest n your implementation handles in under ten seconds, and describe — without implementing it — one approach that would push that limit further.* 
+
+#### Explanation
+
+TO DO
 
 ## 9. Limitations and Observations
 
