@@ -193,7 +193,10 @@ Length   | K=3    | K=5    | K=7    | K=9
 ---------------------------------------------
 100      |    75% |    35% |    10% |     2%
 150      |    73% |    88% |    27% |    24%
-200      |    86% |    99% |    66% |    73%
+200      |    86% |    9
+
+
+9% |    66% |    73%
 300      |    95% |   100% |    70% |    87%
 400      |    98% |   100% |   100% |    99%
 ```
@@ -212,12 +215,28 @@ Length   | K=3    | K=5    | K=7    | K=9
 
 #### Explanation
 
-TO DO
+**The recovery of the key length (Table 2) is governed by the total length of the ciphertext (N)**. As long as N is large enough for periodic letter allignments to stand out, the Index of Coincidence accross cosets will cross the threshold and identify the key length correctly. 
+
+In contrast, **the recovery of the complete key (Table 1) is governed by the avergage number of caharacters per coset**, given by (N / K). Once the key length is found, the ciphertext is partitioned into K independent Caesar ciphers. Breaking each shift using chi-squared frequency analysis requires sufficient characters within a single coset. If (N / K) is too small, frequency analysis fails, causing the entire key recovery to fail.
+
+For a 200-letter ciphertext with a 5-letter key (K=5), each coset contains N / K = 200 / 5 = 40 characters. A sample size of 40 letters per coset provides enough frequency structure to reliably break the monoalphabetic Caesar shift via chi-squared comparison, yielding a 99% complete key recovery rate.
+
+However, for a 200-letter ciphertext with a 9-letter key (K=9), each coset contains only N / K = 200 / 9 ≈ 22 characters. A sample of 22 letters is statistically noisy for letter frequency distributions, causing the Caesar breaker to pick incorrect shifts in some cosets and dropping the complete key success rate.
+
+To guarantee a reliable key recovery, **each individual coset needs at least 35 to 40 characters** for frequency analysis to work. Therefore, the rule of thumb formula for the required ciphertext length N given a maximum expected key length K is: $$N >= 40 * K$$
+
 
 ## 8. C3 - Columnar Transposition Breaker
 
 #### Question
 *n! grows fast. State the largest n your implementation handles in under ten seconds, and describe — without implementing it — one approach that would push that limit further.* 
+
+Measurement table:
+
+```
+text
+TODO
+```
 
 #### Explanation
 
