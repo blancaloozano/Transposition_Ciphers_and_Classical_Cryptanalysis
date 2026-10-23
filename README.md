@@ -179,10 +179,36 @@ As observed in the table, $m=10$ and $m=15$ (multiples) also produce high IC val
 
 ## 7. C2 - Vigenère Attack
 
-#### Question
-- *The two tables degrade at very different rates. Which quantity governs each?*
-- *Your attack succeeds on a 200-letter ciphertext with a 5-letter key and fails on a 200-letter ciphertext with a 9letter key. Explain why, in terms of the quantity you identified.*
-- *A user of your tool asks how much ciphertext they need. Give them a rule of thumb, as a formula rather than a number*
+#### Questions
+1. *The two tables degrade at very different rates. Which quantity governs each?*
+2. *Your attack succeeds on a 200-letter ciphertext with a 5-letter key and fails on a 200-letter ciphertext with a 9letter key. Explain why, in terms of the quantity you identified.*
+3. *A user of your tool asks how much ciphertext they need. Give them a rule of thumb, as a formula rather than a number*
+
+Measurement tables:
+
+```
+text
+--- Table 1: Complete Key Recovery Rate (%) ---
+Length   | K=3    | K=5    | K=7    | K=9   
+---------------------------------------------
+100      |    75% |    35% |    10% |     2%
+150      |    73% |    88% |    27% |    24%
+200      |    86% |    99% |    66% |    73%
+300      |    95% |   100% |    70% |    87%
+400      |    98% |   100% |   100% |    99%
+```
+
+```
+text
+--- Table 2: Key Length Recovery Rate (%) ---
+Length   | K=3    | K=5    | K=7    | K=9   
+---------------------------------------------
+100      |    75% |    81% |    68% |    55%
+150      |    73% |    99% |    98% |    83%
+200      |    86% |    99% |    97% |    96%
+300      |    95% |   100% |    99% |   100%
+400      |    98% |   100% |   100% |    99%
+```
 
 #### Explanation
 
@@ -191,7 +217,7 @@ TO DO
 ## 8. C3 - Columnar Transposition Breaker
 
 #### Question
-n! grows fast. State the largest n your implementation handles in under ten seconds, and describe — without implementing it — one approach that would push that limit further.* 
+*n! grows fast. State the largest n your implementation handles in under ten seconds, and describe — without implementing it — one approach that would push that limit further.* 
 
 #### Explanation
 
