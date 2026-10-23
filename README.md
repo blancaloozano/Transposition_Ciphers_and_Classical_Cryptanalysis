@@ -139,9 +139,43 @@ For example, if the true key lengt is 5, most distances will be multiples of 5 (
 ## 6. C1 - Coset Index Table
 
 #### Question
-*Show the full table of coset_ic for m = 1 to 16 on one of your own test ciphertexts, and mark the true key length, its multiples and its divisors*
+- *. Return the smallest m whose average stands clearly above the baseline, and say in your report what "clearly" means in your code.*
+- *Show the full table of coset_ic for m = 1 to 16 on one of your own test ciphertexts, and mark the true key length, its multiples and its divisors*
 
 #### Explanation
+
+In my code, **clearly above the baseline** means exceeding a fixed threshold of `0.055`.
+
+We already know uniformly random distribution of letters produce a baseline IC of $\approx 0.038$, while structured English text produces an IC of $\approx 0.066$. The threshold of `0.055` fits between noise and natural language.
+
+In my code, the function evaluates lengths iteratively from 1 to `max_m` and returns the first `m` that crosses this threshold. This prevents the code from returning a multiple of the key length, since multiples also cross the threshold but appear later.
+
+
+For the table, I used the reference twxt we've used before, this time only taking the first 600 characters. By using the key "LMEON" I encrypted it reusing `vigenere.py` from practice 1, obtaining the following IC resutls:
+
+```
+text
+m  | Coset Average IC
+---|-----------------
+1  | 0.0421
+2  | 0.0418
+3  | 0.0430
+4  | 0.0419
+5  | 0.0631
+6  | 0.0426
+7  | 0.0410
+8  | 0.0420
+9  | 0.0442
+10 | 0.0619
+11 | 0.0397
+12 | 0.0436
+13 | 0.0404
+14 | 0.0422
+15 | 0.0668
+16 | 0.0390
+
+Most likely key length: 5
+```
 
 ## 7. C2 - Vigenère Attack
 
