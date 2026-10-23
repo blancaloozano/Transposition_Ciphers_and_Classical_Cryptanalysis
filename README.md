@@ -139,11 +139,17 @@ We saw that using a fixed, rare character like `X` for padding introduces massiv
 
 ## 7. C2 - Vigenère Attack
 
-TO DO 
+#### Question
+- *The two tables degrade at very different rates. Which quantity governs each?*
+- *Your attack succeeds on a 200-letter ciphertext with a 5-letter key and fails on a 200-letter ciphertext with a 9letter key. Explain why, in terms of the quantity you identified.*
+- *A user of your tool asks how much ciphertext they need. Give them a rule of thumb, as a formula rather than a number*
+
+#### Explanation
 
 ## 8. C3 - Columnar Transposition Breaker
 
-TO DO 
+#### Question
+*$n$! grows fast. State the largest n your implementation handles in under ten seconds, and describe — without implementing it — one approach that would push that limit further.* 
 
 ## 9. Limitations and Observations
 
