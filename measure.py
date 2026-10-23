@@ -29,6 +29,9 @@ def index_of_coincidence(text: str) -> float:
 # print(index_of_coincidence("CRYPTANALYSIS"))
     # Output: 0.038461538461538464
 
+# print(index_of_coincidence(reference_en))
+    # Output: 0.06363493619531406
+
 
 # B2 - Cipher Family Classifier
 
