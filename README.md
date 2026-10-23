@@ -153,8 +153,7 @@ In my code, the function evaluates lengths iteratively from 1 to `max_m` and ret
 
 For the table, I used the reference twxt we've used before, this time only taking the first 600 characters. By using the key "LMEON" I encrypted it reusing `vigenere.py` from practice 1, obtaining the following IC resutls:
 
-```
-text
+```text
 m  | Coset Average IC
 ---|-----------------
 1  | 0.0421
