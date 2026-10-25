@@ -17,7 +17,7 @@ def main():
 
     try:
         with open(args.input_file, "r") as f:
-            ciphertext = f.read().strip()
+            ciphertext = f.read().strip().upper()
     except FileNotFoundError:
         print(f"Error: File '{args.input_file}' not found.")
         sys.exit(1)
@@ -29,18 +29,17 @@ def main():
     cipher_type = classify(ciphertext, language=args.lang)
     text_ic = ic(ciphertext)
 
-    print("--- Cryptanalysis Measurements ---")
+    print("\n--- Cryptanalysis Measurements ---\n")
     print(f"Input file: {args.input_file}")
     print(f"Text length: {len(ciphertext)} characters")
     print(f"Index of coincidence (IC): {text_ic:.4f}")
-    print(f"Cipher Family: {cipher_type.upper()}")
-    print("--------------------------------")
+    print(f"Cipher Family: {cipher_type.upper()}\n")
+    print("--------------------------------\n")
 
     if cipher_type == "substitution":
 
         if text_ic >= 0.05:
-            print(f"Substitution type: MONOALPHABETIC (High IC)")
-
+            print(f"Substitution type: MONOALPHABETIC (High IC)\n")
             print(report(ciphertext, language= args.lang))
 
         else:
@@ -50,19 +49,19 @@ def main():
             print(f"Estimated key length: {guessed_kl}")
 
             key, plaintext = break_vigenere_attack(ciphertext, language= args.lang)
-            print(f" Recovered Key: {key}")
-            print(f"Plaintext: {plaintext}")
+            print(f"Recovered Key: {key}")
+            print(f"Plaintext:\n\n{plaintext}\n")
 
     elif cipher_type == "transposition":
-        print(f"Cipher type: TRANSPOSITION")
+        print(f"Cipher type: COLUMNAR")
 
         if args.cols is not None:
             cols_order, plaintext = break_columnar_attack(ciphertext, n_cols=args.cols, language=args.lang)
             print(f"Column Order: {cols_order}")
-            print(f"Plaintext:\n{plaintext}")
+            print(f"Plaintext:\n\n{plaintext}\n")
 
         else:
-            print("Error: Transposition detected but --cols N was not provided.")
+            print("No --cols N provided. Testing column divisors (2 to 8)")
 
             best_order = None
             best_plaintext = ""
@@ -81,7 +80,7 @@ def main():
                     best_order = order
                     best_plaintext = candidate
 
-            print(f"Best Column COunt: {best_n}")
+            print(f"Best Column Count: {best_n}")
             print(f"Column order: {best_order}")
             print(f"Plaintext: {best_plaintext}")
 
