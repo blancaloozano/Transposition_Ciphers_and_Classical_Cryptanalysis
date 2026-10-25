@@ -302,6 +302,6 @@ The development of this practice helped me see what I did wrong in the previous 
 *  **Qualitative vs. Quantitative Answers**: In P1, I relied too heavily on conceptual descriptions instead of precise numerical findings. In P2, I made sure to provide exact quantitative evidence (like the threshold selection reasoning and better tables)
 
 **AI Assistance** 
-LLMs (Claude and Gemini) were used throughout the development of this project. Rather than relying on them to generate the cryptanalysis reports like I wrongly did in P1, they were used to help me understand the code logic, inspect and fix appearing errors, clarify measurement task requirements, and generate the unit test suite (`tests/test_P2.py`) Gemini assisted in structuring the measurement benchmarking routines and table-printing logic in `break_columnar.py` and crafting the automated unit tests.
+LLMs (Claude and Gemini) were used throughout the development of this project. Rather than relying on them to generate the cryptanalysis reports like I wrongly did in P1, they were used to help me understand the code logic, inspect and fix appearing errors, clarify measurement task requirements, and generate the unit test suite (`tests/test_P2.py`). Gemini assisted in structuring the measurement benchmarking routines and table-printing logic in `break_columnar.py` and crafting the automated unit tests.
 
 All measurements and cipher scripts were executed manually and all report data was independently generated and verified.
