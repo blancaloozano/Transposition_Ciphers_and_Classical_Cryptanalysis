@@ -7,7 +7,12 @@ The program is executed entirely from the terminal by targetting the main execut
 
 All commands assume you are in the repository root, with Python 3.11+ and no dependencies beyond the standard library (pytest only if you wish to run the automated tests). 
 
-Here are some examples on how to run everything:
+How to run tests:
+```bash
+python -m unittest discover -s tests
+```
+
+Some examples on how to run everything:
 
 ```bash
 python attack.py --in examples/cipher_vigenere.txt --lang en
