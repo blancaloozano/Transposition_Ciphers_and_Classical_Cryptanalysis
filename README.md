@@ -27,7 +27,28 @@ cipher_mono.txt           Monoalphabetic Substitution       QWERTYUIOPASDFGHJKLZ
 cipher_vigenere.txt       Vigenère                          LEMON                          SUBSTITUTION, POLYALPHABETIC
 ```
 
+We also extended ``crypto.py`` from P1. Now, we can also execute the P2 modules directly from that file. 
+I used same example as above, the first 400 characters of ``reference_en`` in ``message.txt`` and the respective cipher in ``cipher.txt``:
 
+```bash
+python crypto.py columnar encrypt --key CIPHER --in examples/message.txt --out examples/cipher.txt
+    # DPFENOLSLCNDOONEERIRASGEPRBNIALCYSWSOIIEHDEVNAGTCEAROIOMETEIEOKENKELEIMTIEISSMPSLATUIFERIOR...
+python crypto.py columnar decrypt --key CIPHER --in examples/cipher.txt
+    # DEVELOPINGEFFECTIVECOMMUNICATIONSKILLSISESSENTIALFORSUCCESSINTHEMODERNPROFESSIONALLANDSCAPE...
+
+python crypto.py railfence encrypt --rails 5 --in examples/message.txt --out examples/cipher.txt
+    #EPFIMCNLSIRETDRSLSWEAIAAISNOPSCBITEITCTEOIFOPHECODVYDCRGAHFHDRMILSAEREOAFOROAIIEENEEUTKIELUSERFOAAEY....
+python crypto.py railfence decrypt --rails 5 --in examples/cipher.txt
+    # DEVELOPINGEFFECTIVECOMMUNICATIONSKILLSISESSENTIALFORSUCCESSINTHEMODERNPROFESSIONALLANDSCAPE...
+
+
+python crypto.py measure ic --in examples/cipher.txt
+    # 0.0661
+python crypto.py measure classify --in examples/cipher.txt
+    # transposition
+python crypto.py measure kasiski --in examples/cipher.txt
+    # {2: 11, 3: 5, 4: 7, 5: 2, 6: 3, 7: 1, 8: 5, 9: 2, 10: 1, 11: 3, 12: 2, 13: 1, 14: 1, 15: 1, 16: 3, 17: 0, 18: 1, 19: 0, 20: 0}
+```
 ## 2. A3 - Double Transposition & Padding
 
 ### Question
