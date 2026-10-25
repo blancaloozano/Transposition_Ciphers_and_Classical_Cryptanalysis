@@ -7,6 +7,13 @@ def coset_ic(ciphertext: str, m: int) -> float :
     "Splits the ciphertext into m cosets and returns the average"
     "of their indices."
 
+    clean = []
+    for char in ciphertext.upper():
+        char = {"Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U", "Ü": "U", "Ñ": "N"}.get(char, char)
+        if "A" <= char <= "Z":
+            clean.append(char)
+    ciphertext = "".join(clean)
+    
     cosets = []
     for i in range(m):
         cosets.append("")

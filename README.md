@@ -7,8 +7,6 @@ The program is executed entirely from the terminal by targetting the main execut
 
 All commands assume you are in the repository root, with Python 3.11+ and no dependencies beyond the standard library (pytest only if you wish to run the automated tests). 
 
-
-
 Here are some examples on how to run everything:
 
 ```bash
@@ -62,7 +60,6 @@ In double columnar transposition:
 1. **Encryption - Pass 1:** The plaintext is padded to a multiple of $K_1$, producing an intermediate text of length $N_1$. 
 2. **Encryption - Pass 2:** The intermediate text of length $N_1$ is padded again to be a multiple of $K_2$, producing a final ciphertext of length $N_2$. 
 
-
 A **naive implementation** fails for two reasons:
 1. **Incorrect order of operations:** A naive approach might try to decrypt using $K_1$ first and then $K_2$. Since encryption applied $K_2$, the matrix geometry and column reordering of $K_2$ are the outermost layer. Decryption **unwraps these passes in reverse order.** ($K_2$ first, then $K_1$).
 2. **Matrix geometry and padding misalignment:** When decrypting with $K_2$, the matrix dimensions are based on $N_2$. The intermediate text will contain $N_1$ characters plus the padding during pass 2. If a naive implementation fails to account for this extra padding, the characters will shift position and the $K_1$ decryption matrix will be misaligned, returning garbage text.
@@ -74,7 +71,6 @@ $$\text{Plaintext}_N \xrightarrow[K_1]{\text{pad pass 1}} \text{Intermediate}_{N
 Decryption Flow:
 
 $$\text{Ciphertext}_{N_2} \xrightarrow[K_2]{\text{decrypt pass 1}} \text{Intermediate}_{N_1}\xrightarrow[K_1]{\text{decrypt pass 2}} \text{Plaintext}_N$$
-
 
 ## 3. B1 - Index of Coincidence (CRYPTANALYSIS)
 
@@ -238,10 +234,7 @@ Length   | K=3    | K=5    | K=7    | K=9
 ---------------------------------------------
 100      |    75% |    35% |    10% |     2%
 150      |    73% |    88% |    27% |    24%
-200      |    86% |    9
-
-
-9% |    66% |    73%
+200      |    86% |    9%  |    66% |    73%
 300      |    95% |   100% |    70% |    87%
 400      |    98% |   100% |   100% |    99%
 ```
