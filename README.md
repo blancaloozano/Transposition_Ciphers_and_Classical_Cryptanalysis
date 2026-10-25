@@ -56,17 +56,16 @@ python crypto.py measure kasiski --in examples/cipher.txt
 *Explain what your `decrypt_double` has to do differently when the plaintext length is not a multiple of both keys, and why a naive implementation returns garbage in that case.*
 
 ### Explanation
-In a single columnar transposition, when the plaintext length, *N*, is not a multiple of the key length, *K*, padding is added to form a complete matrix. 
+In a single columnar transposition, if the plaintext length $N$ is not a multiple of the key length $K$, padding characters are appended to complete the final row so the text forms a perfect rectangular matrix.
 
 In double columnar transposition:
-1. **Encryption - Pass 1:** We pad the plaintext to a multiple of $K_1$, producing a text of length $N_1$. 
-2. **Encryption - Pass 2:** We take this text of length $N_1$ and pad it to a multiple of $K_2$, producing a final ciphertext of length $N_2$. 
+1. **Encryption - Pass 1:** The plaintext is padded to a multiple of $K_1$, producing an intermediate text of length $N_1$. 
+2. **Encryption - Pass 2:** The intermediate text of length $N_1$ is padded again to be a multiple of $K_2$, producing a final ciphertext of length $N_2$. 
 
-Decryption **unwraps these passes in reverse order.** ($K_2$ first, then $K_1$).
 
-A **naive implementation** fails when $N$ is not a multiple of both key lengths because it attempts to remove padding immediately after decrypting with $K_2$.
-
-If padding is removed right after the $K_2$ decryption pass, the intermediate text length is now below $N_1$ and therefore will fail when running the $K_1$ decryption pass. Columnar transpositions depend strictly on the exact intermediate text length. Altering $N_1$ causes the characters to be extracted incorrectly, outputting the wrong text. `decrypt_double` must preserve the intermediate length $N_1$ between passes and only strip padding after both passes.
+A **naive implementation** fails for two reasons:
+1. **Incorrect order of operations:** A naive approach might try to decrypt using $K_1$ first and then $K_2$. Since encryption applied $K_2$, the matrix geometry and column reordering of $K_2$ are the outermost layer. Decryption **unwraps these passes in reverse order.** ($K_2$ first, then $K_1$).
+2. **Matrix geometry and padding misalignment:** When decrypting with $K_2$, the matrix dimensions are based on $N_2$. The intermediate text will contain $N_1$ characters plus the padding during pass 2. If a naive implementation fails to account for this extra padding, the characters will shift position and the $K_1$ decryption matrix will be misaligned, returning garbage text.
 
 Encryption Flow:  
 
