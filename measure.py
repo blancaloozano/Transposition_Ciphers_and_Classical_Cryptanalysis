@@ -14,6 +14,9 @@ def index_of_coincidence(text: str) -> float:
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     numerator = 0
 
+    if len(text) < 2:
+        return 0.0
+
     # We calculte the frequency for every letter in the text
     for letter in alphabet:
         count = 0
