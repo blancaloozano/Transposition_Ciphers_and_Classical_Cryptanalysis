@@ -1,37 +1,44 @@
 def repeats(ciphertext: str, min_len: int = 3) -> dict[str, list[int]]:
 
-    ciphertext = ciphertext.replace(" ", "")
+    clean = []
+    for char in ciphertext.upper():
+        char = {"Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U", "Ü": "U", "Ñ": "N"}.get(char, char)
+        if "A" <= char <= "Z":
+            clean.append(char)
+    ciphertext = "".join(clean)
 
     seq_positions = {}
 
-    # We want to extract all sub-sequences of length >= min_len
     for length in range(min_len, len(ciphertext)):
+        current_seqs = {}
         for i in range(len(ciphertext) - length +1):
             seq = ciphertext[i: i+length]
             if seq not in seq_positions:
                 seq_positions[seq] = []
             seq_positions[seq].append(i)
 
-    repeats_dict = {}
+        added_any = False
+        for seq, pos in seq_positions.items():
+            if len(pos) > 1:
+                seq_positions[seq] = pos
+                added_any = True
 
-    for seq, pos in seq_positions.items():
-        if len(pos) > 1:
-            repeats_dict[seq] = pos
+        if not added_any:
+            break
 
-    return repeats_dict
+    return seq_positions
 
 def distances(ciphertext: str, min_len: int = 3) -> list[int]:
 
     reps = repeats(ciphertext, min_len)
-    distances = set()
+    dist_list = []
 
     for positions in reps.values():
-        for i in range(len(positions)):
-            for j in range(i +1, len(positions)):
-                dist = positions[j] - positions[i]
-                distances.add(dist)
+        for i in range(len(positions) -1):
+            dist = positions[i+1] - positions[i]
+            dist_list.append(dist)
 
-    return sorted(list(distances))
+    return dist_list
 
 def factor_tally(ciphertext: str, max_factor: int = 20) -> dict[int, int]:
 
