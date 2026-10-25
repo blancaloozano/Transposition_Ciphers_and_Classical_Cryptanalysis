@@ -300,6 +300,10 @@ We could, by evaluating partially reconstructed rows column by column, implement
 The development of this practice helped me see what I did wrong in the previous practice:
 * **Missing Experimental Cases**: In P1 I omitted the cross-language comparison tables (such as testing a Spanish text with an English frequency table). In P2, I made sure to fully read all requirements and report complete tables for every requested case.
 *  **Qualitative vs. Quantitative Answers**: In P1, I relied too heavily on conceptual descriptions instead of precise numerical findings. In P2, I made sure to provide exact quantitative evidence (like the threshold selection reasoning and better tables)
+*  
+### Note on ``--cols`` autodetection -- Doesn't work.
+
+When developing ``attack.py``, omitting the ``--cols`` argument was intended to test column counts from 2 to 8 to choose the most appropriate one. However, my code fails to select the optimal solution and always returned a garbage text. **--cols argument is recommended for reliable results** as I couldn't finda  better approach to fix this.
 
 **AI Assistance** 
 LLMs (Claude and Gemini) were used throughout the development of this project. Rather than relying on them to generate the cryptanalysis reports like I wrongly did in P1, they were used to help me understand the code logic, inspect and fix appearing errors, clarify measurement task requirements, and generate the unit test suite (`tests/test_P2.py`). Gemini assisted in structuring the measurement benchmarking routines and table-printing logic in `break_columnar.py` and crafting the automated unit tests.

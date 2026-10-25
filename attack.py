@@ -65,20 +65,22 @@ def main():
 
             best_order = None
             best_plaintext = ""
-            best_n = None
+            best_n = 2
             text_len = len(ciphertext)
 
             divisors = [n for n in range(2,9) if text_len % n == 0]
             if not divisors:
-                divisors = list(range(2,9))
+                divisors = [2,3,4,5,6,7,8]
 
             for n in divisors:
-                order, candidate = break_columnar_attack(ciphertext, n, language=args.lang)
-
-                if best_n is None:
+                try:
+                    order, candidate = break_columnar_attack(ciphertext, n, language=args.lang)
                     best_n = n
                     best_order = order
                     best_plaintext = candidate
+                    break
+                except Exception:
+                    continue
 
             print(f"Best Column Count: {best_n}")
             print(f"Column order: {[i + 1 for i in best_order]}")
