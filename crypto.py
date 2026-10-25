@@ -87,6 +87,13 @@ def build_parser() -> argparse.ArgumentParser:
     rf_parser.add_argument("--in", dest="in_file", required=True)
     rf_parser.add_argument("--out", dest= "out_file", default=None)
 
+    # P2 - Columnar
+    col_parser = subparsers.add_parser("columnar")
+    col_parser.add_argument("mode", choices=["encrypt", "decrypt"])
+    col_parser.add_argument("--key", required=True)
+    col_parser.add_argument("--in", dest="in_file", required=True)
+    col_parser.add_argument("--out", dest="out_file", default=None)
+
     # P2 - Measure
     m_parser = subparsers.add_parser("measure")
     m_sub = m_parser.add_subparsers(dest="metric", required=True)

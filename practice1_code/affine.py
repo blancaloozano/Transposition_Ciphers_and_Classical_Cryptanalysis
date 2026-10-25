@@ -1,5 +1,5 @@
 
-from basics import to_numbers, to_letters, egcd, modinv
+from .basics import to_numbers, to_letters, egcd, modinv
 
 
 def encrypt(plaintext: str, a: int, b:int) -> str:
