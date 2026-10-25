@@ -1,6 +1,6 @@
 
-from affine import encrypt, decrypt, valid_keys
-from break_caesar import chi_squared, english, spanish
+from .affine import encrypt, decrypt, valid_keys
+from .break_caesar import chi_squared, english, spanish
 
 def break_affine(ciphertext: str, language: str = "en") -> tuple[tuple[int, int], str]:
     

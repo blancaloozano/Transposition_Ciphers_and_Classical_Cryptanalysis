@@ -1,6 +1,6 @@
 
-from vigenere import cosets, decrypt
-from break_caesar import break_caesar
+from .vigenere import cosets, decrypt
+from .break_caesar import break_caesar
 
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
