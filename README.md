@@ -126,15 +126,19 @@ Length     |   Transposition Errors  |  Substitution Errors  | Total Errors
 250        |      0                  |       0               |     0.00% 
 400        |      0                  |       0               |     0.00%        
 ```
+
+```text
+chi-square transposition: 0.23485170050869358
+chi-square substitution: 13.347814436606013
+Middle point: 6.791333068557353
+```
 ### Explanation
 
 #### 1. Threshold Selection
 
-We already know that Transposition changes the position of the letters while Substitution changes the letters themselves. So, for the classifying function I decided to use a threshold of $0.5$ based on how to chi-square scoring function works:
-- If a text is close to what we expect (an english text), the chi-score is going to be a near-zero value.
-- If a text is not close to what we expect, the chi-score is going to be a really high value 
+We already know that Transposition changes the position of the letters while Substitution changes the letters themselves. To find the threshold, I measured the chi-squared score on a 400-letter text. The transposition cipher scored $0.23$, while the substitution cipher scored $13.35$. I set the threshold at the exact midpoint of $6.79$ to clearly separate both distributions based on empirical data.
 
-Therefore, we can assume that a **transposition is going to have a *low* chi-square value** and a **substitution is going to have a *high* chi-square value**. The threshold is chosen to 'protect' the transposition samples from being misclassified as substitutions, but we could have chosen another threshold of 0.6 or 0.7 for example.
+Therefore, we can assume that a **transposition is going to have a *low* chi-square value** and a **substitution is going to have a *high* chi-square value**.
 
 #### 2. Lengths for the Classifier to Work
 

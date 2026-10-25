@@ -52,6 +52,21 @@ for length in [20, 50, 100, 200, 400]:
 
 # B2 - Cipher Family Classifier
 
+# - HELPER FUNCTION-- Choosing the threshold
+
+def threshold():
+    text = reference_en[:400]
+
+    t_cipher = columnar_encrypt(text, "KEYWORD", pad= "X")
+    t_score = chi_squared(t_cipher, english)
+
+    s_cipher = monoalphabetic_encrypt(text, get_random_mono_key())
+    s_score = chi_squared(s_cipher, english)
+
+    print(f"\nchi-square transposition: {t_score}")
+    print(f"chi-square substitution: {s_score}")
+    print(f"Middle point: {(t_score + s_score) / 2}")
+
 def classify(ciphertext: str, language: str = "en") -> str:
     """Return "transposition" or "substitution"."""
 
@@ -61,7 +76,7 @@ def classify(ciphertext: str, language: str = "en") -> str:
         table = english
 
     score = chi_squared(ciphertext, table)
-    threshold = 0.5
+    threshold = 6.79
 
     if score < threshold:
         return "transposition"
@@ -147,5 +162,6 @@ def run_measurement(probabilistic_padding: bool = False):
         print(f"{L:<6} | {transposition_errors:<12} | {substitution_errors:<12} | {error_rate:.2f}%")
 
 if __name__ == "__main__":
+    threshold()
     run_measurement(probabilistic_padding=False)
     run_measurement(probabilistic_padding=True)
