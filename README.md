@@ -3,11 +3,13 @@
 This practice forms part of the subject Cryptography for the Bachelor in Data Science and Engineering, CEU San Pablo University 2026/27. It implements classical transposition ciphers (*Rail Fence*, *Columnar Transposition* and *Double Columnar Transposition*), cryptographic measurement tools (*Index of Coincidence*, *Chi-squared Classifier*, *Kasiski Examination*), and automated attacks to break Vigenère and Columnar ciphers without human intervention.
 
 ## 1. How to run everything
-The program is executed entirely from the terminal by targetting the main executable file, crypto.py.
+The program is executed entirely from the terminal by targetting the main executable file, ``attack.py``.
 
 All commands assume you are in the repository root, with Python 3.11+ and no dependencies beyond the standard library (pytest only if you wish to run the automated tests). Here are some examples on how to run everything:
-```text
-TO DO 
+
+```bash
+python attack.py --in cipher_vigenere.txt --lang en
+python attack.py --in cipher_columnar.txt --lang en --cols 5
 ```
 
 
