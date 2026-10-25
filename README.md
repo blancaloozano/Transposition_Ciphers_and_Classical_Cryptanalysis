@@ -86,15 +86,19 @@ The theoretical IC for an English text is $\approx 0.066$ and for uniformly rand
 
 Short examples usually lack repeating letters purely by chance, producing an IC identical to or lower than random noise. Like we saw with the `CRYPTANALYSIS` example where $N = 13$, it produced an IC of $0.038$
 
-I consider the measurement trustworthy for values of $N = 100$ or higher. To reach this decision I looked at the IC Formula:
+In order to choose at which length we should trust this measurement, I tested the IC for different lengths [20, 50, 100, 200, 400] in the ``reference_en`` text. Reaching the following:
 
-$$IC = \frac{\sum{n_L (n_L -1)}}{N (N-1)}$$
+```text
+Length   | IC
+-----------------------
+20       | 0.0737
+50       | 0.0645
+100      | 0.0634 <--
+200      | 0.0636
+400      | 0.0661
+```
 
-where $n_L$ is the count of the letter L in that text and N being the length of the text
-
-In short texts most letter counts are either 0 or 1, contributing nothing to the numerator. With barely any pairs, the numerator cannot accumuate enough matches to reach the theoretical average. Instead, the IC stays trapped in values between 0 and 0.038, acting like random noise.
-
-As $N$ grows, texts are more likely to repeat letters. This forces $n_L \ge 2$, causing positive values to accumulate in the numerator instead of 0s, therefore stabilizing the IC around its theoretical value. I calculated the IC manually for different text lengths, reaching the conclusion that it is reliable at approximately $\approx 100$
+So, we consider the measurement trustworthy for values of $N = 100$ or higher since the IC is $\approx$ 0.066. 
 
 ## 4. B2 - Cipher Classifier
 

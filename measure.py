@@ -10,6 +10,14 @@ from practice1_code.monoalpha import encrypt as monoalphabetic_encrypt, key_from
 # B1 - Index of Coincidence
 
 def index_of_coincidence(text: str) -> float:
+
+    clean = []
+    for char in text.upper():
+        char = {"Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U", "Ü": "U", "Ñ": "N"}.get(char, char)
+        if "A" <= char <= "Z":
+            clean.append(char)
+    text = "".join(clean)
+
     n = len(text)
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     numerator = 0
@@ -35,6 +43,12 @@ def index_of_coincidence(text: str) -> float:
 # print(index_of_coincidence(reference_en))
     # Output: 0.06363493619531406
 
+# Código temporal para sacar los datos del informe
+print("Length   | IC")
+print("-----------------------")
+for length in [20, 50, 100, 200, 400]:
+    ic_val = index_of_coincidence(reference_en[:length])
+    print(f"{length:<8} | {ic_val:.4f}")
 
 # B2 - Cipher Family Classifier
 
