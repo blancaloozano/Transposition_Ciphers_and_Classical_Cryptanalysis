@@ -5,11 +5,26 @@ This practice forms part of the subject Cryptography for the Bachelor in Data Sc
 ## 1. How to run everything
 The program is executed entirely from the terminal by targetting the main executable file, ``attack.py``.
 
-All commands assume you are in the repository root, with Python 3.11+ and no dependencies beyond the standard library (pytest only if you wish to run the automated tests). Here are some examples on how to run everything:
+All commands assume you are in the repository root, with Python 3.11+ and no dependencies beyond the standard library (pytest only if you wish to run the automated tests). 
+
+
+
+Here are some examples on how to run everything:
 
 ```bash
-python attack.py --in cipher_vigenere.txt --lang en
-python attack.py --in cipher_columnar.txt --lang en --cols 5
+python attack.py --in examples/cipher_vigenere.txt --lang en
+python attack.py --in examples/cipher_columnar.txt --lang en --cols 5
+python attack.py --in examples/cipher_mono.txt --lang en
+```
+#### Example Ciphertexts
+
+The folder ``/examples`` contains three ciphertexts that can be used to check that ``attack.py`` works. All of them were generated with the code of this repository from the same plaintext: The first 400 letters of ``reference_en``, which is already clean. They contain no padding because 400 is a multiple of the key length of the columnar example.
+
+```text
+File -------------------- Cipher -------------------------- Key -------------------------- Expected Output
+cipher_columnar.txt       Columnar Transposition            ROTOR                          TRANSPOSITION
+cipher_mono.txt           Monoalphabetic Substitution       QWERTYUIOPASDFGHJKLZXCVBNM	   SUBSTITUTION, MONOALPHABETIC
+cipher_vigenere.txt       Vigenère                          LEMON                          SUBSTITUTION, POLYALPHABETIC
 ```
 
 

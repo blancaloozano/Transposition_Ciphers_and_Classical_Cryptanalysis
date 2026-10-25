@@ -43,7 +43,7 @@ def main():
             print(report(ciphertext, language= args.lang))
 
         else:
-            print("Substitution type: POLYALPHABETICC / VIGÈNERE (Low IC)")
+            print("Substitution type: POLYALPHABETIC")
 
             guessed_kl = find_key_length(ciphertext, language=args.lang)
             print(f"Estimated key length: {guessed_kl}")
@@ -57,7 +57,7 @@ def main():
 
         if args.cols is not None:
             cols_order, plaintext = break_columnar_attack(ciphertext, n_cols=args.cols, language=args.lang)
-            print(f"Column Order: {cols_order}")
+            print(f"Column Order: {[i + 1 for i in cols_order]}")
             print(f"Plaintext:\n\n{plaintext}\n")
 
         else:
@@ -81,7 +81,7 @@ def main():
                     best_plaintext = candidate
 
             print(f"Best Column Count: {best_n}")
-            print(f"Column order: {best_order}")
+            print(f"Column order: {[i + 1 for i in best_order]}")
             print(f"Plaintext: {best_plaintext}")
 
 if __name__ == "__main__":
