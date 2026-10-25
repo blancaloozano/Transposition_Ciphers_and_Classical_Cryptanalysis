@@ -52,21 +52,6 @@ for length in [20, 50, 100, 200, 400]:
 
 # B2 - Cipher Family Classifier
 
-# - HELPER FUNCTION-- Choosing the threshold
-
-def threshold():
-    text = reference_en[:400]
-
-    t_cipher = columnar_encrypt(text, "KEYWORD", pad= "X")
-    t_score = chi_squared(t_cipher, english)
-
-    s_cipher = monoalphabetic_encrypt(text, get_random_mono_key())
-    s_score = chi_squared(s_cipher, english)
-
-    print(f"\nchi-square transposition: {t_score}")
-    print(f"chi-square substitution: {s_score}")
-    print(f"Middle point: {(t_score + s_score) / 2}")
-
 def classify(ciphertext: str, language: str = "en") -> str:
     """Return "transposition" or "substitution"."""
 
@@ -76,7 +61,7 @@ def classify(ciphertext: str, language: str = "en") -> str:
         table = english
 
     score = chi_squared(ciphertext, table)
-    threshold = 6.79
+    threshold = 1.0
 
     if score < threshold:
         return "transposition"
@@ -118,6 +103,46 @@ def get_probabilistic_pad(table: dict[str, float]) -> str:
     weights = list(table.values())
     chosen = random.choices(letters, weights, k = 1)
     return chosen[0]
+
+# Threshold Selection
+
+def threshold(samples: int = 1500, thresholds = None):
+
+    if thresholds is None:
+        thresholds = [0.5, 0.7, 1.0, 1.5, 2.0, 3.0]
+
+    lengths = [60, 120, 250, 400]
+
+    scores_x = []       # transposition, fixed padding X
+    scores_rand = []    # transposition, probabilistic padding
+    scores_sub = []     # monoalphabetic substitution
+
+    for L in lengths:
+        plaintext = reference_en[0:L]
+
+        for i in range(samples):
+            key = get_random_columnar_key()
+
+            c_x = columnar_encrypt(plaintext, key, pad="X")
+            scores_x.append(chi_squared(c_x, english))
+
+            pad_char = get_probabilistic_pad(english)
+            c_r = columnar_encrypt(plaintext, key, pad=pad_char)
+            scores_rand.append(chi_squared(c_r, english))
+
+            c_s = monoalphabetic_encrypt(plaintext, get_random_mono_key())
+            scores_sub.append(chi_squared(c_s, english))
+
+    print(f"\n--- Threshold selection ({samples} samples per length and cipher) ---")
+    print("t    | Transposition errors, X pad | Transposition errors, random pad | Substitution errors")
+    print("-" * 95)
+
+    for t in thresholds:
+        err_x = sum(1 for v in scores_x if v >= t) / len(scores_x) * 100
+        err_r = sum(1 for v in scores_rand if v >= t) / len(scores_rand) * 100
+        err_s = sum(1 for v in scores_sub if v < t) / len(scores_sub) * 100
+        print(f"{t:<4} | {err_x:>26.1f}% | {err_r:>31.1f}% | {err_s:>18.2f}%")
+
 
 # Execution
 
