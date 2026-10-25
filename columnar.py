@@ -142,7 +142,24 @@ def encrypt_double(plaintext: str, kw1: str, kw2: str, pad: str = "X") -> str:
 def decrypt_double(ciphertext: str, kw1: str, kw2: str) -> str:
 
     first_pass = decrypt(ciphertext, kw2)
-    return decrypt(first_pass, kw1)
+    k1 = len(key_order(kw1))
+    k2 = len(key_order(kw2))
+    n2 = len(first_pass)
 
-# print(decrypt_double("WCTEIHSTAEVREBEUTMNSUEEDSEEMYK", "ROTOR", "ENIGMA"))
+    candidates = []
+    for n1 in range(n2 - k2 + 1, n2 + 1):
+        if n1 > 0 and n1 % k1 == 0:
+            candidates.append(n1)
+
+    n1 = n2
+    for cand in candidates:
+        tail = first_pass[cand:]
+        if len(set(tail)) <= 1:
+            n1 = cand
+            break
+
+    return decrypt(first_pass[:n1], kw1)
+
+
+print(decrypt_double("WCTEIHSTAEVREBEUTMNSUEEDSEEMYK", "ROTOR", "ENIGMA"))
     # Output: THESAMEKEYMUSTNEVERBEUSEDTWICE
