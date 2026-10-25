@@ -1,5 +1,13 @@
 def encrypt(plaintext:str, rails:int) -> str:
 
+    clean = []
+    for char in plaintext.upper():
+        char = {"Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U", "Ü": "U", "Ñ": "N"}.get(char, char)
+        if "A" <= char <= "Z":
+            clean.append(char)
+
+    plaintext = "".join(clean)
+
     if rails < 2:
         return plaintext
 
@@ -32,6 +40,13 @@ def encrypt(plaintext:str, rails:int) -> str:
 
 
 def decrypt(ciphertext: str, rails: int) -> str:
+
+    clean = []
+    for char in ciphertext.upper():
+        char = {"Á": "A", "É": "E", "Í": "I", "Ó": "O", "Ú": "U", "Ü": "U", "Ñ": "N"}.get(char, char)
+        if "A" <= char <= "Z":
+            clean.append(char)
+    ciphertext = "".join(clean)
 
     if rails < 2:
         return ciphertext
