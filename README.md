@@ -36,6 +36,7 @@ python crypto.py columnar encrypt --key CIPHER --in examples/message.txt --out e
 python crypto.py columnar decrypt --key CIPHER --in examples/cipher.txt
     # DEVELOPINGEFFECTIVECOMMUNICATIONSKILLSISESSENTIALFORSUCCESSINTHEMODERNPROFESSIONALLANDSCAPE...
 
+
 python crypto.py railfence encrypt --rails 5 --in examples/message.txt --out examples/cipher.txt
     #EPFIMCNLSIRETDRSLSWEAIAAISNOPSCBITEITCTEOIFOPHECODVYDCRGAHFHDRMILSAEREOAFOROAIIEENEEUTKIELUSERFOAAEY....
 python crypto.py railfence decrypt --rails 5 --in examples/cipher.txt
