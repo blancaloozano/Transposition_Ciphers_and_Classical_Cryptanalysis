@@ -161,5 +161,5 @@ def decrypt_double(ciphertext: str, kw1: str, kw2: str) -> str:
     return decrypt(first_pass[:n1], kw1)
 
 
-print(decrypt_double("WCTEIHSTAEVREBEUTMNSUEEDSEEMYK", "ROTOR", "ENIGMA"))
+# print(decrypt_double("WCTEIHSTAEVREBEUTMNSUEEDSEEMYK", "ROTOR", "ENIGMA"))
     # Output: THESAMEKEYMUSTNEVERBEUSEDTWICE
