@@ -187,6 +187,6 @@ def run_measurement(probabilistic_padding: bool = False):
         print(f"{L:<6} | {transposition_errors:<12} | {substitution_errors:<12} | {error_rate:.2f}%")
 
 if __name__ == "__main__":
-    threshold()
+    # threshold() # We don't want the table from generating for every analysis, so I see it and # it.
     run_measurement(probabilistic_padding=False)
     run_measurement(probabilistic_padding=True)
